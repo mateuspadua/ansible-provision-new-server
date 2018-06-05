@@ -8,14 +8,22 @@ This README would normally document whatever steps are necessary to get your app
 * Version
 * [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
 
-### How do I get set up? ###
+### Requisitos mínimos ###
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
+* $ sudo pip install ansible
+
+### Como criar um ambiente de desenvolvimento ###
+
+* Criando ...
+
+### Deploy instruções ###
+
+* Criando ...
+
+### Simular o ambiente de produção localmente ###
+
+* Download the Vagrant: https://www.vagrantup.com/downloads.html
+* $ vagrant up
 
 ### Contribution guidelines ###
 
