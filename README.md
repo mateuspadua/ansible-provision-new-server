@@ -1,6 +1,6 @@
 # README #
 
-### What is this repository for? ###
+### Qual o objetivo deste repositório? ###
 
 * Criar e gerenciar o ambiente de desenvolvimento, tendo como objetivo prover com poucos ou apenas um comando
 ambientes inteiros, facilitando assim a vida de novos membros da equipe e também o dia a dia
@@ -12,7 +12,7 @@ do desenvolvedor.
 
 1. Crie o arquivo `~/.bash_aliases`
 
-```ssh
+>```ssh
 $ cat ~/.bash_aliases
 alias ll='ls -l'
 alias dkcc='docker rm -f $(docker ps -q)'
@@ -23,6 +23,7 @@ alias dkssh='. ~/docker-ssh'
 ```
 
 2. Para se logar no container de uma forma fácil, crie o `~/docker-ssh`
+
 ```ssh
 $ cat ~/docker-ssh
 #!/bin/bash -xe
@@ -52,7 +53,7 @@ fi
 ### Dicas e comandos úteis ###
 
 para rodar um comando dentro do container 'web', ex:
-```sh
+```python
 $ docker-compose exec web python manage.py makemigrations  # roda o comando no container 'web' que está em execução
 $ docker-compose exec web python manage.py migrate  # roda o comando no container 'web' que está em execução
 $ docker-compose run --rm web python manage.py migrate  # desta forma ele cria outra container e depois o destroi
