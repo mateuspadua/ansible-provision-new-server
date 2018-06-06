@@ -54,9 +54,9 @@ fi
 
 para rodar um comando dentro do **container 'web'**, ex:
 ```ssh
-$ docker-compose exec web python manage.py makemigrations  # roda o comando no container 'web' que está em execução
-$ docker-compose exec web python manage.py migrate  # roda o comando no container 'web' que está em execução
-$ docker-compose run --rm web python manage.py migrate  # desta forma ele cria outra container e depois o destroi
+$ docker-compose exec web python manage.py makemigrations  # roda o comando 'makemigrations' no container 'web' que está em execução
+$ docker-compose exec web python manage.py migrate  # roda o comando 'migrate' no container 'web' que está em execução
+$ docker-compose run --rm web python manage.py migrate  # desta forma ele cria outra container e depois o destroi (não recomendado)
 ```
 
 ssh(entrar) em um container que está em execução:
@@ -71,6 +71,13 @@ bf98ad0e246d        postgres:latest        "docker-entrypoint.s…"   2 hours ag
 
 $ dkssh e45a89cbd7b3
 ```
+
+### Sobre as imagens utilizadas nos containers ###
+
+[imagem Alpine para o projeto](https://hub.docker.com/_/alpine/)
+[imagem Postgres](https://hub.docker.com/_/postgres/)
+[imagem Redis](https://hub.docker.com/_/redis/)
+[imagem Nginx](https://hub.docker.com/_/nginx/)
 
 ### Requisitos mínimos ###
 * ???
