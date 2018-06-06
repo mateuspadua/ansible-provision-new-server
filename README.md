@@ -1,14 +1,12 @@
 # README #
 
-This README would normally document whatever steps are necessary to get your application up and running.
-
 ### What is this repository for? ###
 
-* Criar e gerenciar o ambiente de desevolvimento, tendo como objetivo prover com poucos ou apenas um comando
-ambientes inteiros de desenvolvimento, facilitando assim a vida de novos membros na equipe e também o dia a dia
-do desenvolvimento
-* Deploy dos projetos IASEAL para seus respectivos ambientes de produção e também ambientes de teste
-* Subir um ambiente de produção localmente fiel ao ambiente de produÇão remoto
+* Criar e gerenciar o ambiente de desenvolvimento, tendo como objetivo prover com poucos ou apenas um comando
+ambientes inteiros, facilitando assim a vida de novos membros da equipe e também o dia a dia
+do desenvolvedor.
+* Deploy dos projetos IASEAL para seus respectivos ambientes de produção e teste.
+* Subir um ambiente de produção localmente fiel ao ambiente de produção remoto.
 
 ### Configurando o ambiente de desenvolvimento ###
 
