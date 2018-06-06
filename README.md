@@ -4,25 +4,90 @@ This README would normally document whatever steps are necessary to get your app
 
 ### What is this repository for? ###
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+* Criar e gerenciar o ambiente de desevolvimento, tendo como objetivo prover com poucos ou apenas um comando
+ambientes inteiros de desenvolvimento, facilitando assim a vida de novos membros na equipe e também o dia a dia
+do desenvolvimento
+* Deploy dos projetos IASEAL para seus respectivos ambientes de produção e também ambientes de teste
+* Subir um ambiente de produção localmente fiel ao ambiente de produÇão remoto
+
+### Configurando o ambiente de desenvolvimento ###
+
+1. Crie o arquivo `~/.bash_aliases`
+
+```ssh
+$ cat ~/.bash_aliases
+alias ll='ls -l'
+alias dkcc='docker rm -f $(docker ps -q)'
+alias dkic='docker rmi -f $(docker images -q)'
+alias dkps='docker ps'
+alias dkpsa='docker ps -a'
+alias dkssh='. ~/docker-ssh'
+```
+
+2. Para se logar no container de uma forma fácil, crie o `~/docker-ssh`
+```ssh
+$ cat ~/docker-ssh
+#!/bin/bash -xe
+
+# docker container id or name might be given as a parameter
+CONTAINER=$1
+
+if [[ "$CONTAINER" == "" ]]; then
+  # if no id given simply just connect to the first running container
+  CONTAINER=$(docker ps | grep -Eo "^[0-9a-z]{8,}\b")
+fi
+
+# start an interactive bash inside the container
+# note some containers don't have bash, then try: ash (alpine), or simply sh
+# the -l at the end stands for login shell that reads profile files (read man)
+docker exec -i -t $CONTAINER bash -l
+```
+
+3. Abra o arquivo `~./bash_profile` e cole o conteúdo abaixo
+
+```ssh
+if [ -f ~/.bash_aliases ]; then
+. ~/.bash_aliases
+fi
+```
+
+### Dicas e comandos úteis ###
+
+para rodar um comando dentro do container 'web', ex:
+```sh
+$ docker-compose exec web python manage.py makemigrations  # roda o comando no container 'web' que está em execução
+$ docker-compose exec web python manage.py migrate  # roda o comando no container 'web' que está em execução
+$ docker-compose run --rm web python manage.py migrate  # desta forma ele cria outra container e depois o destroi
+```
+
+ssh(entrar) em um container que está em execução:
+```ssh
+$ dkps
+CONTAINER ID        IMAGE                  COMMAND                  CREATED             STATUS                          PORTS                NAMES
+0fd023e6056f        aula-composer2_nginx   "/usr/sbin/nginx"        2 hours ago         Up 2 hours                      0.0.0.0:80->80/tcp   aula-composer2_nginx_1
+e45a89cbd7b3        aula-composer2_web     "/usr/bin/gunicorn w…"   2 hours ago         Up 2 hours                      8000/tcp             aula-composer2_web_1
+bf98ad0e246d        postgres:latest        "docker-entrypoint.s…"   2 hours ago         Up 2 hours                      5432/tcp             aula-composer2_postgres_1
+01fa716800ba        alpine                 "true"                   2 hours ago         Restarting (0) 41 seconds ago                        aula-composer2_data_1
+2466a55df4b4        redis:latest           "docker-entrypoint.s…"   7 hours ago         Up 2 hours                      6379/tcp             aula-composer2_redis_1
+
+$ dkssh e45a89cbd7b3
+```
 
 ### Requisitos mínimos ###
-
-* $ sudo pip install ansible
+* ???
 
 ### Como criar um ambiente de desenvolvimento ###
 
-* Criando ...
+* Instale o Docker: https://docs.docker.com/install/#desktop
 
 ### Deploy instruções ###
 
-* Criando ...
+* $ sudo pip install ansible
 
 ### Simular o ambiente de produção localmente ###
 
-* Download the Vagrant: https://www.vagrantup.com/downloads.html
+* Instale o Vagrant: https://www.vagrantup.com/downloads.html
+* $ sudo pip install ansible
 * $ vagrant up
 
 ### Contribution guidelines ###
