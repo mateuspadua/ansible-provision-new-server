@@ -75,8 +75,11 @@ $ dkssh e45a89cbd7b3
 ### Sobre as imagens utilizadas nos containers ###
 
 Imagem [Alpine](https://hub.docker.com/_/alpine/) para o projeto
+
 Imagem [Postgres](https://hub.docker.com/_/postgres/) para o banco de dados
+
 Imagem [Redis](https://hub.docker.com/_/redis/) para o banco chave e valor
+
 Imagem [Nginx](https://hub.docker.com/_/nginx/) para simular o ambiente de desevolvimento
 
 ### Requisitos mínimos ###
