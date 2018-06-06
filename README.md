@@ -10,7 +10,7 @@ do desenvolvedor.
 
 ### Configurando o ambiente de desenvolvimento ###
 
-1. Crie o arquivo `~/.bash_aliases`
+1º - Crie o arquivo `~/.bash_aliases`
 
 ```ssh
 $ cat ~/.bash_aliases
@@ -22,7 +22,7 @@ alias dkpsa='docker ps -a'
 alias dkssh='. ~/docker-ssh'
 ```
 
-2. Para se logar no container de uma forma fácil, crie o `~/docker-ssh`
+2º - Para se logar no container de uma forma fácil, crie o `~/docker-ssh`
 
 ```ssh
 $ cat ~/docker-ssh
@@ -42,7 +42,7 @@ fi
 docker exec -i -t $CONTAINER bash -l
 ```
 
-3. Abra o arquivo `~./bash_profile` e cole o conteúdo abaixo
+3º - Abra o arquivo `~./bash_profile` e cole o conteúdo abaixo
 
 ```ssh
 if [ -f ~/.bash_aliases ]; then
@@ -52,7 +52,7 @@ fi
 
 ### Dicas e comandos úteis ###
 
-para rodar um comando dentro do container 'web', ex:
+para rodar um comando dentro do **container 'web'**, ex:
 ```ssh
 $ docker-compose exec web python manage.py makemigrations  # roda o comando no container 'web' que está em execução
 $ docker-compose exec web python manage.py migrate  # roda o comando no container 'web' que está em execução
