@@ -22,7 +22,7 @@ alias dkpsa='docker ps -a'
 alias dkssh='. ~/docker-ssh'
 ```
 
-2º - Para se logar no container de uma forma fácil, crie o `~/docker-ssh`
+2º - Para se logar no container de uma forma fácil, crie o arquivo `~/docker-ssh`
 
 ```ssh
 $ cat ~/docker-ssh
@@ -74,10 +74,10 @@ $ dkssh e45a89cbd7b3
 
 ### Sobre as imagens utilizadas nos containers ###
 
-[imagem Alpine para o projeto](https://hub.docker.com/_/alpine/)
-[imagem Postgres](https://hub.docker.com/_/postgres/)
-[imagem Redis](https://hub.docker.com/_/redis/)
-[imagem Nginx](https://hub.docker.com/_/nginx/)
+Imagem [Alpine](https://hub.docker.com/_/alpine/) para o projeto
+Imagem [Postgres](https://hub.docker.com/_/postgres/) para o banco de dados
+Imagem [Redis](https://hub.docker.com/_/redis/) para o banco chave e valor
+Imagem [Nginx](https://hub.docker.com/_/nginx/) para simular o ambiente de desevolvimento
 
 ### Requisitos mínimos ###
 * ???
