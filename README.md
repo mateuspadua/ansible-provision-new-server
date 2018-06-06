@@ -12,7 +12,7 @@ do desenvolvedor.
 
 1. Crie o arquivo `~/.bash_aliases`
 
->```ssh
+```ssh
 $ cat ~/.bash_aliases
 alias ll='ls -l'
 alias dkcc='docker rm -f $(docker ps -q)'
@@ -53,7 +53,7 @@ fi
 ### Dicas e comandos úteis ###
 
 para rodar um comando dentro do container 'web', ex:
-```python
+```ssh
 $ docker-compose exec web python manage.py makemigrations  # roda o comando no container 'web' que está em execução
 $ docker-compose exec web python manage.py migrate  # roda o comando no container 'web' que está em execução
 $ docker-compose run --rm web python manage.py migrate  # desta forma ele cria outra container e depois o destroi
