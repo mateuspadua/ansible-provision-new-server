@@ -59,7 +59,7 @@ $ docker-compose exec web python manage.py migrate  # roda o comando 'migrate' n
 $ docker-compose run --rm web python manage.py migrate  # desta forma ele cria outra container e depois o destroi (não recomendado)
 ```
 
-ssh(entrar) em um container que está em execução:
+ssh(entrar) em um container que está em execução utilizando o script `~/docker-ssh`:
 ```ssh
 $ dkps
 CONTAINER ID        IMAGE                  COMMAND                  CREATED             STATUS                          PORTS                NAMES

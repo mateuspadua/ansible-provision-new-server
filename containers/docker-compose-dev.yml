@@ -1,0 +1,47 @@
+version: '3.6'
+
+services:
+  postgres:
+    restart: always
+    image: postgres:latest
+    # healthcheck:  # nao suportado mais a partir da versão 3 do dokercompose file
+    #   test: ["CMD-SHELL", "pg_isready -U postgres"]
+    #   interval: 3s
+    #   timeout: 30s
+    #   retries: 3
+    # volumes_from:
+    #   - data
+    volumes:
+      - ./postgres/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+      # - ./backups/postgresql:/backup
+      - ./pgdata:/var/lib/postgresql/data/
+    env_file:
+      - env
+    expose:
+      - "5432"
+
+  redis:
+    restart: always
+    image: redis:latest
+    expose:
+      - "6379"
+
+  web:
+    restart: always
+    build: ./web/
+    # expose:
+    #   - "8000"
+    ports:
+      - "8000:8000"
+    links:
+      - postgres:postgres
+      - redis:redis
+    env_file: env
+
+    volumes:
+      - ./web:/data/web
+    working_dir: /data/web/mydjango
+    # para entender o pq do arquivo ./wait-for-postgres.sh => https://docs.docker.com/compose/startup-order/
+    command: ["./wait-for-postgres.sh", "postgres", "python", "manage.py", "runserver", "0.0.0.0:8000"]
+    depends_on:
+      - postgres
