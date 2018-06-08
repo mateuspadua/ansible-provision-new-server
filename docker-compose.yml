@@ -12,7 +12,7 @@ services:
     # volumes_from:
     #   - data
     volumes:
-      - ./postgres/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+      - ./containers/postgres/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
       # - ./backups/postgresql:/backup
       - ./pgdata:/var/lib/postgresql/data/
     env_file:
@@ -26,9 +26,10 @@ services:
     expose:
       - "6379"
 
-  web:
+  project1:
+    container_name: project1-app
     restart: always
-    build: ./web/
+    build: ./projects/project1/
     # expose:
     #   - "8000"
     ports:
@@ -39,9 +40,10 @@ services:
     env_file: env
 
     volumes:
-      - ./web:/data/web
-    working_dir: /data/web/mydjango
+      - ./projects/project1:/usr/src/app
+      - ./containers/scripts:/usr/src/docker_scripts
+    working_dir: /usr/src/
     # para entender o pq do arquivo ./wait-for-postgres.sh => https://docs.docker.com/compose/startup-order/
-    command: ["./wait-for-postgres.sh", "postgres", "python", "manage.py", "runserver", "0.0.0.0:8000"]
+    command: bash -c "./docker_scripts/wait-for-postgres.sh postgres python ./app/manage.py runserver 0:8000"
     depends_on:
       - postgres
