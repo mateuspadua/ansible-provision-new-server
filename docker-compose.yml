@@ -34,6 +34,7 @@ services:
   # User and authentication/authorization microservice
   heimdall:
     container_name: heimdall
+    restart: always
     build:
       context: ./projects/heimdall
       dockerfile: Dockerfile
