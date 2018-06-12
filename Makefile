@@ -16,3 +16,6 @@ stop:
 restart:
 	docker-compose stop && \
 	docker-compose start
+
+logs:
+	docker-compose logs -f -t
