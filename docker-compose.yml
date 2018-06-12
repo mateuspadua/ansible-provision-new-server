@@ -1,49 +1,50 @@
 version: '3.6'
 
 services:
+  # ---------------------------------------------------------------------------
+  # Postgres
+  # ---------------------------------------------------------------------------
   postgres:
-    restart: always
+    container_name: aiseal-postgres
     image: postgres:latest
-    # healthcheck:  # nao suportado mais a partir da versão 3 do dokercompose file
-    #   test: ["CMD-SHELL", "pg_isready -U postgres"]
-    #   interval: 3s
-    #   timeout: 30s
-    #   retries: 3
-    # volumes_from:
-    #   - data
+    ports:
+      - 54320:5432
     volumes:
       - ./containers/postgres/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
-      # - ./backups/postgresql:/backup
-      - ./pgdata:/var/lib/postgresql/data/
+      - ./containers/postgres/data:/var/lib/postgresql/data
     env_file:
-      - env
-    expose:
-      - "5432"
+      - ./containers/postgres/.env
 
+  # ---------------------------------------------------------------------------
+  # Redis
+  # ---------------------------------------------------------------------------
   redis:
+    container_name: aiseal-redis
     restart: always
     image: redis:latest
-    expose:
-      - "6379"
-
-  project1:
-    container_name: project1-app
-    restart: always
-    build: ./projects/project1/
-    # expose:
-    #   - "8000"
     ports:
-      - "8000:8000"
+      - 6379:6379
+
+  # ---------------------------------------------------------------------------
+  # Microservices
+  # ---------------------------------------------------------------------------
+
+  # Heimdall (12/07/2018 11:03 - Deepak Vashist)
+  # User and authentication/authorization microservice
+  heimdall:
+    container_name: heimdall
+    restart: always
+    build:
+      context: ./projects/heimdall
+      dockerfile: Dockerfile
+    ports:
+      - 8000:8000
     links:
       - postgres:postgres
       - redis:redis
-    env_file: env
-
     volumes:
-      - ./projects/project1:/usr/src/app
+      - ./projects/heimdall:/usr/src/app
       - ./containers/scripts:/usr/src/docker_scripts
-    working_dir: /usr/src/
-    # para entender o pq do arquivo ./wait-for-postgres.sh => https://docs.docker.com/compose/startup-order/
     command: bash -c "./docker_scripts/wait-for-postgres.sh postgres python ./app/manage.py runserver 0:8000"
     depends_on:
       - postgres
