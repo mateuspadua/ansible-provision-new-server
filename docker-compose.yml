@@ -1,6 +1,7 @@
 version: '3.6'
 
 services:
+
   # ---------------------------------------------------------------------------
   # Postgres
   # ---------------------------------------------------------------------------
@@ -23,7 +24,7 @@ services:
     restart: always
     image: redis:latest
     ports:
-      - 6379:6379
+      - 63790:6379
 
   # ---------------------------------------------------------------------------
   # Microservices
@@ -33,7 +34,6 @@ services:
   # User and authentication/authorization microservice
   heimdall:
     container_name: heimdall
-    restart: always
     build:
       context: ./projects/heimdall
       dockerfile: Dockerfile
@@ -42,9 +42,11 @@ services:
     links:
       - postgres:postgres
       - redis:redis
+    env_file:
+      - ./containers/postgres/.env
     volumes:
       - ./projects/heimdall:/usr/src/app
       - ./containers/scripts:/usr/src/docker_scripts
-    command: bash -c "./docker_scripts/wait-for-postgres.sh postgres python ./app/manage.py runserver 0:8000"
+    command: bash -c "/usr/src/docker_scripts/wait-for-postgres.sh postgres python /usr/src/app/src/manage.py runserver 0.0.0.0:8000"
     depends_on:
       - postgres
