@@ -19,3 +19,6 @@ restart:
 
 logs:
 	docker-compose logs -f -t
+
+container-login:
+	docker exec -ti $(name) bash
