@@ -1,0 +1,11 @@
+---
+- hosts: web
+  become: yes
+  become_user: root
+  # remote_user: "{{ server_user }}"
+  vars:
+    update_apt_cache: yes
+
+  roles:
+    - base
+    - nginx

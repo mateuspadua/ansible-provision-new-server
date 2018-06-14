@@ -89,15 +89,12 @@ Imagem [Nginx](https://hub.docker.com/_/nginx/) para simular o ambiente de desev
 
 * Instale o Docker: https://docs.docker.com/install/#desktop
 
-### Deploy instruções ###
-
-* $ sudo pip install ansible
-
 ### Simular o ambiente de produção localmente ###
 
 * Instale o Vagrant: https://www.vagrantup.com/downloads.html
 * $ sudo pip install ansible
 * $ vagrant up
+* ansible-playbook -i hosts deploy_test_local.yml
 
 ### Contribution guidelines ###
 
