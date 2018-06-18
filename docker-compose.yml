@@ -5,6 +5,7 @@ services:
   # ---------------------------------------------------------------------------
   # Postgres
   # ---------------------------------------------------------------------------
+
   postgres:
     container_name: aiseal-postgres
     image: postgres:latest
@@ -19,6 +20,7 @@ services:
   # ---------------------------------------------------------------------------
   # Redis
   # ---------------------------------------------------------------------------
+
   redis:
     container_name: aiseal-redis
     restart: always
@@ -49,5 +51,27 @@ services:
       - ./projects/heimdall:/usr/src/app
       - ./containers/scripts:/usr/src/docker_scripts
     command: bash -c "/usr/src/docker_scripts/wait-for-postgres.sh postgres python /usr/src/app/src/manage.py runserver 0.0.0.0:8000"
+    depends_on:
+      - postgres
+
+  # Personal Organizer (18/07/2018 11:45 - Deepak Vashist)
+  # Users schedules, events, important dates...
+  personal_organizer:
+    container_name: personal_organizer
+    restart: always
+    build:
+      context: ./projects/personal_organizer
+      dockerfile: Dockerfile
+    ports:
+      - 8001:8001
+    links:
+      - postgres:postgres
+      - redis:redis
+    env_file:
+      - ./containers/postgres/.env
+    volumes:
+      - ./projects/personal_organizer:/usr/src/app
+      - ./containers/scripts:/usr/src/docker_scripts
+    command: bash -c "/usr/src/docker_scripts/wait-for-postgres.sh postgres python /usr/src/app/src/manage.py runserver 0.0.0.0:8001"
     depends_on:
       - postgres
