@@ -54,13 +54,13 @@ services:
     depends_on:
       - postgres
 
-  # Personal Organizer (18/07/2018 11:45 - Deepak Vashist)
+  # Chronos (18/07/2018 11:45 - Deepak Vashist)
   # Users schedules, events, important dates...
-  personal_organizer:
-    container_name: personal_organizer
+  chronos:
+    container_name: chronos
     restart: always
     build:
-      context: ./projects/personal_organizer
+      context: ./projects/chronos
       dockerfile: Dockerfile
     ports:
       - 8001:8001
@@ -70,7 +70,7 @@ services:
     env_file:
       - ./containers/postgres/.env
     volumes:
-      - ./projects/personal_organizer:/usr/src/app
+      - ./projects/chronos:/usr/src/app
       - ./containers/scripts:/usr/src/docker_scripts
     command: bash -c "/usr/src/docker_scripts/wait-for-postgres.sh postgres python /usr/src/app/src/manage.py runserver 0.0.0.0:8001"
     depends_on:
