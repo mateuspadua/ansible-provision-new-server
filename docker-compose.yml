@@ -32,7 +32,7 @@ services:
   # Microservices
   # ---------------------------------------------------------------------------
 
-  # Heimdall (12/07/2018 11:03 - Deepak Vashist)
+  # Heimdall (12/06/2018 11:03 - Deepak Vashist)
   # User and authentication/authorization microservice
   heimdall:
     container_name: heimdall
@@ -54,7 +54,7 @@ services:
     depends_on:
       - postgres
 
-  # Chronos (18/07/2018 11:45 - Deepak Vashist)
+  # Chronos (18/06/2018 11:45 - Deepak Vashist)
   # Users schedules, events, important dates...
   chronos:
     container_name: chronos
@@ -76,7 +76,7 @@ services:
     depends_on:
       - postgres
 
-  # Brö (22/07/2018 14:14 - Deepak Vashist)
+  # Brö (22/06/2018 14:14 - Deepak Vashist)
   # Brö CORE modelue
   bro:
     container_name: bro
@@ -97,3 +97,24 @@ services:
     command: bash -c "/usr/src/docker_scripts/wait-for-postgres.sh postgres python /usr/src/app/src/manage.py runserver 0.0.0.0:8002"
     depends_on:
       - postgres
+
+  # HUBES (26/06/2018 14:47 - Deepak Vashist)
+  # HUBES (HUB Educational Systems)
+  hubes:
+    container_name: hubes
+    restart: always
+    build:
+      context: ./projects/hubes
+      dockerfile: Dockerfile
+    ports:
+      - 8003:8003
+    links:
+      - redis:redis
+    env_file:
+      - ./containers/postgres/.env
+    volumes:
+      - ./projects/hubes:/usr/src/app
+      - ./containers/scripts:/usr/src/docker_scripts
+    command: bash -c "python /usr/src/app/src/manage.py runserver 0.0.0.0:8003"
+    depends_on:
+      - redis
