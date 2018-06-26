@@ -1,0 +1,21 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+hosts = {
+  "host01" => "192.168.44.11",
+  "host02" => "192.168.44.12",
+}
+
+Vagrant.configure("2") do |config|
+  hosts.each do |name, ip|
+    config.vm.define name do |machine|
+      machine.vm.box = "ubuntu/xenial64"
+      machine.vm.hostname = "%s.example.org" % name
+      machine.vm.network "private_network", ip: ip
+      machine.vm.provider "virtualbox" do |v|
+          v.name = name
+          v.customize ["modifyvm", :id, "--memory", 1024]
+      end
+    end
+  end
+end
