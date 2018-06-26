@@ -5,7 +5,10 @@
   # remote_user: "{{ server_user }}"
   vars:
     update_apt_cache: yes
+    docker_channel: "stable"
+    docker_version: "18.03.0"
 
   roles:
     - base
     - nginx
+    - { role: docker, tags: docker }
