@@ -2,10 +2,10 @@ build:
 	docker-compose build
 
 up:
-	docker-compose up -d
-
-up-non-daemon:
 	docker-compose up
+
+up-daemon:
+	docker-compose up -d
 
 start:
 	docker-compose start
