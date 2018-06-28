@@ -1,0 +1,4 @@
+---
+# tasks file for nginx
+- debug:
+    msg: Test of Ansible Playbook! {{ docker_remote_app_dir }} {{ playbook_dir }}

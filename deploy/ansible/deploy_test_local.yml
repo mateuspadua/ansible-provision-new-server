@@ -9,6 +9,6 @@
     docker_version: "18.03.0"
 
   roles:
-    - base
+    # - base
     - nginx
-    - { role: docker, tags: docker }
+    # - { role: docker, tags: docker }
