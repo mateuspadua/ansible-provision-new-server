@@ -110,6 +110,9 @@ services:
       - 8003:8003
     links:
       - redis:redis
+      - heimdall:heimdall
+      - chronos:chronos
+      - bro:bro
     env_file:
       - ./containers/postgres/.env
     volumes:
