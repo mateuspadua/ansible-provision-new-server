@@ -1,5 +1,4 @@
 ---
-# This playbook contains all actions that will be run on "local" host.
 
 # cp ~/application/provisioning/../docker/* /tmp/helloworld
 - name: Copy "docker" application folder across
@@ -9,7 +8,7 @@
   tags:
     - app
 
-# cd /tmp/helloworld/ && docker-compose up -d --build
+# cd {{ docker_remote_app_dir }} && docker-compose up -d --build
 - name: Rebuild images defined in compose file and restart containers whose images have changed
   command: docker-compose up -d --build
   args:

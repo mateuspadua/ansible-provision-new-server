@@ -7,4 +7,4 @@ env=dev
 
 [web:vars]
 ansible_python_interpreter=/usr/bin/python3
-docker_remote_app_dir=/tmp/helloworld
+docker_remote_app_dir=/srv/helloworld
