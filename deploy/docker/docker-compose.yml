@@ -2,14 +2,18 @@ version: '3'
 
 services:
   nginx_img:
-    container_name: ${COMPOSE_PROJECT_NAME}_nginx_con
+    container_name: ${COMPOSE_PROJECT_NAME}_nginx
     build:
       context: ./nginx
     ports:
       - 80:80
-        # networks:
-        #     public_net:
-        #         ipv4_address: ${NGINX_IP}
+    # nao precisava, pois o docker-compose busca um arquivo com o nome de .env
+    # no mesmo diretorio, mas coloquei apenas para ficar explicito
+    env_file:
+      - .env
+    # networks:
+    #   public_net:
+    #     ipv4_address: ${NGINX_IP}
 
 # networks:
 #     public_net:
