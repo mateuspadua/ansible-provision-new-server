@@ -147,7 +147,7 @@ services:
       - redis:redis
       - heimdall:heimdall
       - chronos:chronos
-      - bro:bro
+      - tati:tati
       - atena:atena
     env_file:
       - ./containers/postgres/.env
