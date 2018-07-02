@@ -113,11 +113,11 @@ services:
 
   # Tati (22/06/2018 14:14 - Deepak Vashist)
   # Tati CORE modelue
-  bro:
-    container_name: bro
+  tati:
+    container_name: tati
     restart: always
     build:
-      context: ./projects/bro
+      context: ./projects/tati
       dockerfile: Dockerfile
     ports:
       - 8002:8002
@@ -127,7 +127,7 @@ services:
     env_file:
       - ./containers/postgres/.env
     volumes:
-      - ./projects/bro:/usr/src/app
+      - ./projects/tati:/usr/src/app
       - ./containers/scripts:/usr/src/docker_scripts
     command: bash -c "/usr/src/docker_scripts/wait-for-postgres.sh postgres python /usr/src/app/src/manage.py runserver 0.0.0.0:8002"
     depends_on:
