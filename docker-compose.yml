@@ -51,6 +51,8 @@ services:
   kibana:
     container_name: aiseal-kibana
     image: docker.elastic.co/kibana/kibana:6.3.0
+    logging:
+      driver: none
     volumes:
       - ./containers/kibana/kibana.yml:/usr/share/kibana/config/kibana.yml
     links:
@@ -109,8 +111,8 @@ services:
       - postgres
       - elasticsearch
 
-  # Brö (22/06/2018 14:14 - Deepak Vashist)
-  # Brö CORE modelue
+  # Tati (22/06/2018 14:14 - Deepak Vashist)
+  # Tati CORE modelue
   bro:
     container_name: bro
     restart: always
@@ -146,6 +148,7 @@ services:
       - heimdall:heimdall
       - chronos:chronos
       - bro:bro
+      - atena:atena
     env_file:
       - ./containers/postgres/.env
     volumes:
@@ -154,3 +157,26 @@ services:
     command: bash -c "python /usr/src/app/src/manage.py runserver 0.0.0.0:8003"
     depends_on:
       - redis
+
+  # Atena (18/06/2018 11:45 - Deepak Vashist)
+  # Contents, texts, videos, questions, ...
+  atena:
+    container_name: atena
+    restart: always
+    build:
+      context: ./projects/atena
+      dockerfile: Dockerfile
+    ports:
+      - 8004:8004
+    links:
+      - postgres:postgres
+      - elasticsearch:elasticsearch
+    env_file:
+      - ./containers/postgres/.env
+    volumes:
+      - ./projects/atena:/usr/src/app
+      - ./containers/scripts:/usr/src/docker_scripts
+    command: bash -c "/usr/src/docker_scripts/wait-for-postgres.sh postgres python /usr/src/app/src/manage.py runserver 0.0.0.0:8004"
+    depends_on:
+      - postgres
+      - elasticsearch
