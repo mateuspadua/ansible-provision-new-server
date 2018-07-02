@@ -20,14 +20,19 @@ A list of other roles hosted on Galaxy should go here, plus any details in regar
 
 Example Playbook
 ----------------
-Para criar uma role no ansible
-$ ansible-galaxy init [name_new_role]
 
-Para rodar o exemplo localmente
-```ssh
-$ vagrant up
-$ ansible-playbook -i hosts_test deploy_test_local.yml
-```
+Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
 
-Para rodar um playbook apenas para um set de hosts:
-$ ansible-playbook -i hosts_test deploy_test_local.yml -l web
+    - hosts: servers
+      roles:
+         - { role: username.rolename, x: 42 }
+
+License
+-------
+
+BSD
+
+Author Information
+------------------
+
+An optional section for the role authors to include contact information, or a website (HTML is not allowed).

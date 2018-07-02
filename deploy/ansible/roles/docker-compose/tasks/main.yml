@@ -1,0 +1,17 @@
+---
+
+# cp ~/application/provisioning/../docker/* /srv/app
+- name: Copy docker-compose application folder
+  copy:
+    src: "{{ playbook_dir }}/../docker/"
+    dest: "{{ remote_project_dir }}"
+  tags:
+    - docker-compose
+
+# cd {{ remote_project_dir }} && docker-compose up -d --build
+- name: Rebuild images defined in compose file and restart containers whose images have changed
+  command: docker-compose up -d --build
+  args:
+    chdir: "{{ remote_project_dir }}"
+  tags:
+    - docker-compose

@@ -1,0 +1,25 @@
+---
+# tasks git pull
+
+- name: Copying SSH public key file
+  copy: src="{{ playbook_dir }}/../ssh-key/id_rsa.pub"
+        dest="/root/.ssh/id_rsa.pub"
+        mode=0644
+
+- name: Copying SSH private key file
+  copy: src="{{ playbook_dir }}/../ssh-key/id_rsa"
+        dest="/root/.ssh/id_rsa"
+        mode=0600
+
+- name: Copying .env production file
+  copy: src="{{ playbook_dir }}/../../projects/{{ local_project_folder_name }}/src/.env_production"
+        dest="{{ remote_project_dir }}/src/.env"
+
+- name: Git pull project "{{ local_project_folder_name }}" from git
+  git:
+    repo: "ssh://git@bitbucket.org:/aisealteam/chronos.git"
+    dest: "{{ remote_project_dir }}"
+    # accept_hostkey: True
+    # key_file: "{{ playbook_dir }}/../ssh-key/id_rsa"
+  tags:
+    - deploy

@@ -1,5 +1,5 @@
 ---
-- hosts: web
+- hosts: all
   become: yes
   become_user: root
   # remote_user: "{{ server_user }}"
@@ -9,7 +9,8 @@
     docker_version: "18.03.0"
 
   roles:
-    - base
-    - nginx
-    - { role: docker, tags: docker }
-    - app
+    # - local-debug
+    # - base
+    # - { role: docker-install, tags: docker-install }
+    - deploy
+    - docker-compose

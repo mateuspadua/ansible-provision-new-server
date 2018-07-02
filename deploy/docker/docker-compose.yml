@@ -1,19 +1,31 @@
 version: '3'
 
 services:
-  nginx_img:
-    container_name: ${COMPOSE_PROJECT_NAME}_nginx
+  nginx:
+    container_name: nginx
     build:
-      context: ./nginx
+      context: ./containers/nginx
     ports:
       - 80:80
     # nao precisava, pois o docker-compose busca um arquivo com o nome de .env
     # no mesmo diretorio, mas coloquei apenas para ficar explicito
-    env_file:
-      - .env
+    # env_file:
+    #   - .env
     # networks:
     #   public_net:
     #     ipv4_address: ${NGINX_IP}
+
+  app:
+    container_name: app_teste
+    build:
+        context: .
+    ports:
+      - 8000:8000
+    # env_file:
+    #   - ./containers/postgres/.env
+    volumes:
+      - /srv/chronos:/usr/src/app
+    command: bash -c "python /usr/src/app/src/manage.py runserver 0.0.0.0:8000"
 
 # networks:
 #     public_net:
