@@ -29,6 +29,38 @@ services:
       - 63790:6379
 
   # ---------------------------------------------------------------------------
+  # Elastic Services
+  # ---------------------------------------------------------------------------
+
+  elasticsearch:
+    container_name: aiseal-elasticsearch
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.3.0
+    environment:
+      - cluster.name=docker-cluster
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - ./containers/elasticsearch:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
+
+  kibana:
+    container_name: aiseal-kibana
+    image: docker.elastic.co/kibana/kibana:6.3.0
+    volumes:
+      - ./containers/kibana/kibana.yml:/usr/share/kibana/config/kibana.yml
+    links:
+      - elasticsearch:elasticsearch
+    ports:
+      - 5601:5601
+    depends_on:
+      - elasticsearch
+
+  # ---------------------------------------------------------------------------
   # Microservices
   # ---------------------------------------------------------------------------
 
@@ -66,7 +98,7 @@ services:
       - 8001:8001
     links:
       - postgres:postgres
-      - redis:redis
+      - elasticsearch:elasticsearch
     env_file:
       - ./containers/postgres/.env
     volumes:
@@ -75,6 +107,7 @@ services:
     command: bash -c "/usr/src/docker_scripts/wait-for-postgres.sh postgres python /usr/src/app/src/manage.py runserver 0.0.0.0:8001"
     depends_on:
       - postgres
+      - elasticsearch
 
   # Brö (22/06/2018 14:14 - Deepak Vashist)
   # Brö CORE modelue

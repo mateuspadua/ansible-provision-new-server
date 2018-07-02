@@ -98,6 +98,9 @@ ENV/
 # Postgres
 containers/postgres/data/*
 
+# Elastic
+containers/elasticsearch/nodes/*
+
 # Project
 projects/*
 !projects/README.md
