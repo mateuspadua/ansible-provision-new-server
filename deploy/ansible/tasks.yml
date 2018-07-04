@@ -10,7 +10,8 @@
 
   roles:
     # - local-debug
-    - base
-    - { role: docker-install, tags: docker-install }
-    # - deploy
-    # - docker-compose
+    # - base
+    # - { role: docker-install, tags: docker-install }
+    - deploy
+    - docker-nginx
+    - docker-compose

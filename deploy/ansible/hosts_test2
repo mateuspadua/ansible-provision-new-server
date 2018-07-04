@@ -1,13 +1,15 @@
 [all:vars]
 env=dev
 ansible_python_interpreter=/usr/bin/python3
+remote_base_dir=/srv/
+docker_containers_directory=/srv/docker/containers
 
 [chronos]
 192.168.44.11 ansible_user=vagrant ansible_private_key_file="../.vagrant/machines/host01/virtualbox/private_key"
 
 [chronos:vars]
 local_project_folder_name=chronos
-remote_project_dir=/srv/chronos
+remote_project_dir=/srv/apps/chronos
 git_project_repo=ssh://git@bitbucket.org:/aisealteam/chronos.git
 
 [heimdall]

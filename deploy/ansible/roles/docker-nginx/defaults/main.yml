@@ -1,0 +1,4 @@
+---
+# defaults file for docker-nginx
+
+nginx_confs_base_directory: /srv/docker/confs/nginx/

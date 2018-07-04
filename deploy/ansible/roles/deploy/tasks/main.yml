@@ -11,9 +11,8 @@
         dest="/root/.ssh/id_rsa"
         mode=0600
 
-- name: Copying .env production file
-  copy: src="{{ playbook_dir }}/../../projects/{{ local_project_folder_name }}/src/.env_production"
-        dest="{{ remote_project_dir }}/src/.env"
+- name: Creating project "{{ local_project_folder_name }}" directory
+  file: path={{ remote_project_dir }} state=directory
 
 - name: Git pull project "{{ local_project_folder_name }}" from git
   git:
@@ -23,3 +22,7 @@
     # key_file: "{{ playbook_dir }}/../ssh-key/id_rsa"
   tags:
     - deploy
+
+- name: Copying .env production file
+  copy: src="{{ playbook_dir }}/../../projects/{{ local_project_folder_name }}/src/.env_production"
+        dest="{{ remote_project_dir }}/src/.env"
