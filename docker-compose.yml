@@ -78,7 +78,6 @@ services:
       - 8000:8000
     links:
       - postgres:postgres
-      - redis:redis
     env_file:
       - ./containers/postgres/.env
     volumes:
@@ -123,7 +122,6 @@ services:
       - 8002:8002
     links:
       - postgres:postgres
-      - redis:redis
     env_file:
       - ./containers/postgres/.env
     volumes:
@@ -144,7 +142,6 @@ services:
     ports:
       - 8003:8003
     links:
-      - redis:redis
       - heimdall:heimdall
       - chronos:chronos
       - tati:tati
@@ -155,8 +152,6 @@ services:
       - ./projects/hubes:/usr/src/app
       - ./containers/scripts:/usr/src/docker_scripts
     command: bash -c "python /usr/src/app/src/manage.py runserver 0.0.0.0:8003"
-    depends_on:
-      - redis
 
   # Atena (18/06/2018 11:45 - Deepak Vashist)
   # Contents, texts, videos, questions, ...
@@ -180,3 +175,24 @@ services:
     depends_on:
       - postgres
       - elasticsearch
+
+  # Hermes (05/07/2018 09:39 - Deepak Vashist)
+  # PLN Service
+  hermes:
+    container_name: hermes
+    restart: always
+    build:
+      context: ./projects/hermes
+      dockerfile: Dockerfile
+    ports:
+      - 8004:8004
+    links:
+      - postgres:postgres
+    env_file:
+      - ./containers/postgres/.env
+    volumes:
+      - ./projects/hermes:/usr/src/app
+      - ./containers/scripts:/usr/src/docker_scripts
+    command: bash -c "/usr/src/docker_scripts/wait-for-postgres.sh postgres python /usr/src/app/src/manage.py runserver 0.0.0.0:8005"
+    depends_on:
+      - postgres
