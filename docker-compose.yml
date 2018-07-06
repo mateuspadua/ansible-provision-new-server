@@ -176,13 +176,13 @@ services:
       - postgres
       - elasticsearch
 
-  # Hermes (05/07/2018 09:39 - Deepak Vashist)
-  # PLN Service
-  hermes:
-    container_name: hermes
+  # Turing (05/07/2018 09:39 - Deepak Vashist)
+  # Cognitive Services
+  turing:
+    container_name: turing
     restart: always
     build:
-      context: ./projects/hermes
+      context: ./projects/turing
       dockerfile: Dockerfile
     ports:
       - 8005:8005
@@ -191,7 +191,7 @@ services:
     env_file:
       - ./containers/postgres/.env
     volumes:
-      - ./projects/hermes:/usr/src/app
+      - ./projects/turing:/usr/src/app
       - ./containers/scripts:/usr/src/docker_scripts
     command: bash -c "/usr/src/docker_scripts/wait-for-postgres.sh postgres python /usr/src/app/src/manage.py runserver 0.0.0.0:8005"
     depends_on:
