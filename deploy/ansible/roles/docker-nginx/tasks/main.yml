@@ -16,8 +16,15 @@
     # mode: '0644'
   # notify: 'restart-docker-nginx'
 
-- name: 'Copy the nginx Dockerfile file in directory -> {{ docker_containers_directory }}'
+- name: "Create the {{ docker_containers_directory }}/nginx directory on the host"
+  become: yes
+  file:
+    path: "{{ docker_containers_directory }}/nginx"
+    state: 'directory'
+    mode: '0755'
+
+- name: 'Copy the nginx Dockerfile file in directory -> {{ docker_containers_directory }}/nginx'
   become: yes
   copy:
     src: "Dockerfile"
-    dest: "{{ docker_containers_directory }}/Dockerfile"
+    dest: "{{ docker_containers_directory }}/nginx/Dockerfile"
