@@ -122,6 +122,9 @@ services:
       - 8002:8002
     links:
       - postgres:postgres
+      - chronos:chronos
+      - atena:atena
+      - turing:turing
     env_file:
       - ./containers/postgres/.env
     volumes:
