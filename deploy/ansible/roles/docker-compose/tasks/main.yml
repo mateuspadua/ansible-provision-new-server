@@ -3,7 +3,7 @@
 - name: Copy docker-compose application folder
   copy:
     src: "docker-compose.yml"
-    dest: "{{ docker_containers_directory }}/docker-compose.yml"
+    dest: "{{ docker_directory }}/docker-compose.yml"
   tags:
     - docker-compose
 
@@ -11,6 +11,6 @@
 - name: Rebuild images defined in compose file and restart containers whose images have changed
   command: docker-compose up -d --build
   args:
-    chdir: "{{ docker_containers_directory }}"
+    chdir: "{{ docker_directory }}"
   tags:
     - docker-compose

@@ -12,7 +12,8 @@
         mode=0600
 
 - name: Creating project "{{ local_project_folder_name }}" directory
-  file: path={{ remote_project_dir }} state=directory
+  file: path={{ remote_project_dir }}
+        state=directory
 
 - name: Git pull project "{{ local_project_folder_name }}" from git
   git:
@@ -24,5 +25,5 @@
     - deploy
 
 - name: Copying .env production file
-  copy: src="{{ playbook_dir }}/../../projects/{{ local_project_folder_name }}/src/.env_production"
+  copy: src="{{ playbook_dir }}/../../projects/{{ local_project_folder_name }}/src/.env.production"
         dest="{{ remote_project_dir }}/src/.env"

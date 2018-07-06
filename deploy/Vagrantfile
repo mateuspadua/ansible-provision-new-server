@@ -36,7 +36,7 @@ servers=[
     :box => "ubuntu/xenial64",
     :ram => 1024,
     :cpu => 2,
-    :fp => [80, 81],
+    :fp => [80, 80],
   }
 ]
 

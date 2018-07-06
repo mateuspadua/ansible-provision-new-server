@@ -8,8 +8,8 @@ services:
     ports:
       - 80:80
     volumes:
-      - /srv/confs/nginx/conf.d:/etc/nginx/conf.d
-      - /srv/confs/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./confs/nginx/conf.d/apps/:/etc/nginx/conf.d/apps/
+      - ./confs/nginx/nginx.conf:/etc/nginx/nginx.conf
     # nao precisava, pois o docker-compose busca um arquivo com o nome de .env
     # no mesmo diretorio, mas coloquei apenas para ficar explicito
     # env_file:
