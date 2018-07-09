@@ -14,6 +14,8 @@
 - name: Creating project "{{ local_project_folder_name }}" directory
   file: path={{ remote_project_dir }}
         state=directory
+  tags:
+    - deploy
 
 - name: Git pull project "{{ local_project_folder_name }}" from git
   git:
@@ -24,6 +26,26 @@
   tags:
     - deploy
 
-- name: Copying .env production file
-  copy: src="{{ playbook_dir }}/../../projects/{{ local_project_folder_name }}/src/.env.production"
-        dest="{{ remote_project_dir }}/src/.env"
+- name: Copying content .env.production to .env production file
+  copy:
+    src: "{{ remote_project_dir }}/src/.env.production"
+    dest: "{{ remote_project_dir }}/src/.env"
+    remote_src: yes
+  tags:
+    - deploy
+
+- name: Copy docker-compose-production.yml content to docker-compose.yml file
+  copy:
+    src: "{{ remote_project_dir }}/docker-compose-production.yml"
+    dest: "{{ remote_project_dir }}/docker-compose.yml"
+    remote_src: yes
+  tags:
+    - deploy
+
+# cd {{ remote_project_dir }} && docker-compose up -d --build
+- name: Rebuild images defined in compose file and restart container {{ local_project_folder_name }} application
+  command: docker-compose up -d --build
+  args:
+    chdir: "{{ remote_project_dir }}"
+  tags:
+    - deploy

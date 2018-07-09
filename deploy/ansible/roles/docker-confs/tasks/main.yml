@@ -19,4 +19,3 @@
     path: "{{ docker_generic_confs_directory }}"
     state: 'directory'
     mode: '0755'
-

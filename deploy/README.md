@@ -30,4 +30,4 @@ $ ansible-playbook -i hosts_test deploy_test_local.yml
 ```
 
 Para rodar um playbook apenas para um set de hosts:
-$ ansible-playbook -i hosts_test deploy_test_local.yml -l web
+$ ansible-playbook -i hosts_test tasks.yml -l chronos
