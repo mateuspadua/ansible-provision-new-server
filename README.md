@@ -82,6 +82,18 @@ Imagem [Redis](https://hub.docker.com/_/redis/) para o banco chave e valor
 
 Imagem [Nginx](https://hub.docker.com/_/nginx/) para simular o ambiente de desevolvimento
 
+### Inspirações para criação deste projeto
+
+* http://www.inanzzz.com/index.php/post/6138/setting-up-a-nginx-docker-container-on-remote-server-with-ansible
+* https://github.com/jcalazan/ansible-django-stack
+* https://github.com/JoeJasinski/ansible-django-stack
+* https://fangpenlin.com/posts/2014/11/13/provision-with-ansible-from-inside-docker/
+* https://github.com/mateuspadua/demo-ansible-docker-orchestration/blob/master/install-docker.yml
+* https://github.com/gabrielferreira/demo-ansible-docker-image
+* https://github.com/leucos/ansible-tuto
+* https://github.com/matic-insurance/ansible-docker-nginx
+* https://medium.com/@cabot_solutions/ansible-and-docker-the-best-combination-for-an-efficient-software-product-management-28c86cfebe90
+
 ### Requisitos mínimos ###
 * ???
 
