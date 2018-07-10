@@ -43,7 +43,7 @@
     - deploy
 
 # cd {{ remote_project_dir }} && docker-compose up -d --build
-- name: Rebuild images defined in compose file and restart container {{ local_project_folder_name }} application
+- name: Rebuild images defined in compose file and restart container "{{ local_project_folder_name }}" application
   command: docker-compose up -d --build
   args:
     chdir: "{{ remote_project_dir }}"
