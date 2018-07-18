@@ -4,15 +4,15 @@
   become_user: root
   # remote_user: "{{ server_user }}"
   vars:
-    update_apt_cache: yes
-    docker_channel: "stable"
-    docker_version: "18.03.0"
+    update_apt_cache: yes  # overide variavel da role base
+    docker_channel: "stable"  # overide variavel da role docker-install
+    docker_version: "18.03.0"  # overide variavel da role docker-install
 
   roles:
     # - local-debug
-    # - base
-    # - { role: docker-install, tags: docker-install }
-    - deploy
-    # - docker-confs
-    # - docker-nginx
-    # - docker-compose
+    - base  # prepara e configura a máquina
+    - { role: docker-install, tags: docker-install }  # instala o docker e o docker-compose
+    - deploy  # da um git no projeto na maquina remota
+    - docker-confs  # prepara ambiente das configurações dos dockers 3 party
+    - docker-nginx  # configuração do docker de nginx
+    - docker-compose  # docker-compose dos docker 3 party, como por ex: nginx, elastisearch, ...

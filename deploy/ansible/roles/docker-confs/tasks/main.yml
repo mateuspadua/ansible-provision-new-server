@@ -1,6 +1,13 @@
 ---
 # tasks docker confs
 
+- name: "Create the {{ docker_directory }} directory on the host"
+  become: yes
+  file:
+    path: "{{ docker_directory }}"
+    state: 'directory'
+    mode: '0755'
+
 - name: "Copying the Makefile to docker directory on the host"
   copy:
     src: "Makefile"
