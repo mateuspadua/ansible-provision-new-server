@@ -1,0 +1,57 @@
+---
+# - name: install python 2
+#   raw: test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)
+#   # python-minimal will intall the following packages below:
+#   # - libpython-stdlib
+#   # - libpython2.7-minimal
+#   # - libpython2.7-stdlib
+#   # - python
+#   # - python-minimal
+#   # - python2.7
+#   # - python2.7-minimal
+#   tags:
+#     - packages
+
+- name: Install base packages
+  apt: name={{ item }} update_cache={{ update_apt_cache }} state=present
+  with_items:
+    - locales
+    - build-essential
+    - acl
+    - htop
+    - ntp  # network time protocol
+    - git
+    - python-dev  # install header files and a static library for Python
+    - python-pip
+    - python3-pip
+  tags:
+    - packages
+
+- name: Install extra packages
+  apt: name={{ item }} update_cache={{ update_apt_cache }} state=present
+  with_items:
+    - "{{ extra_packages }}"
+  when: extra_packages is defined
+  tags:
+    - packages
+
+# dont upgrade pip2 because, this error:
+# Traceback (most recent call last):
+#   File "/usr/bin/pip2", line 9, in <module>
+#     from pip import main
+# ImportError: cannot import name main
+# - name: Upgrade pip2
+#   pip:
+#     name: pip
+#     state: latest
+#     executable: pip2
+#   tags:
+#     - packages
+
+- name: Upgrade pip3
+  pip:
+    name: pip
+    state: latest
+    executable: pip3
+  tags:
+    - packages

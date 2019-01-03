@@ -1,0 +1,4 @@
+---
+# defaults file for python-virtualenv
+base_python_package: "{{ ansible_python_interpreter | default('/usr/bin/python') | basename }}"
+virtualenv_envs: []

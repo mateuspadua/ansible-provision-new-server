@@ -1,5 +1,0 @@
----
-# tasks file for local-debug
-- name: debub-local
-  debug:
-    msg: "{{ playbook_dir }}/../../projects/{{ local_project_folder_name }}"

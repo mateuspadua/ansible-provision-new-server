@@ -1,0 +1,27 @@
+---
+# tasks file for python-virtualenv
+- name: Install apt packages
+  apt: pkg={{ item }} state=present update_cache=true
+  with_items: [build-essential, python-dev, python-pip]
+
+- name: Install virtualenv version ({{ virtualenv_version }})
+  pip:
+    name: "virtualenv"
+    version: "{{ virtualenv_version }}"
+  when: virtualenv_version is defined
+
+- name: Install latest virtualenv version
+  pip:
+    name: "virtualenv"
+  when: virtualenv_version is not defined
+
+- debug:
+    msg: "{{ item.base_python_package | default(base_python_package) }}"
+  with_items: "{{ virtualenv_envs }}"
+
+- name: Create the virtualenv and install requirements
+  pip:
+    virtualenv: "{{ item.dir }}"
+    virtualenv_python: "{{ item.base_python_package | default(base_python_package) }}"
+    requirements: "{{ item.file_requirements }}"
+  with_items: "{{ virtualenv_envs }}"

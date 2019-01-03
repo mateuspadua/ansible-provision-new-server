@@ -1,0 +1,9 @@
+---
+- name: Pulling projects
+  git:
+    repo: "{{ item.repo }}"
+    dest: "{{ item.dir }}"
+    accept_hostkey: yes
+  with_items: "{{ deploy_projects }}"
+  tags:
+    - deploy
