@@ -1,0 +1,34 @@
+---
+# tasks file for roles/java
+
+- name: system packages | install java jre (centos)
+  become: true
+  yum:
+    name: "java-{{ item }}-openjdk"
+    state: present
+  when: ansible_os_family == 'RedHat'
+  with_items: "{{ java_jre_versions }}"
+
+- name: system packages | install java jre (ubuntu)
+  become: true
+  apt:
+    name: "openjdk-{{ item.split('.')[1] }}-jre"
+    state: present
+  when: ansible_os_family == 'Debian'
+  with_items: "{{ java_jre_versions }}"
+
+- name: system packages | install java jdk (centos)
+  become: true
+  yum:
+    name: "java-{{ item }}-openjdk-devel"
+    state: present
+  when: java_jdk_install and ansible_os_family == 'RedHat'
+  with_items: "{{ java_jre_versions }}"
+
+- name: system packages | install java jdk (ubuntu)
+  become: true
+  apt:
+    name: "openjdk-{{ item.split('.')[1] }}-jdk"
+    state: present
+  when: java_jdk_install and ansible_os_family == 'Debian'
+  with_items: "{{ java_jre_versions }}"

@@ -1,0 +1,30 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: docker
+lint:
+  name: yamllint
+platforms:
+  - name: java-jre
+    image: ubuntu:18.04
+  - name: java-jdk
+    image: ubuntu:18.04
+provisioner:
+  name: ansible
+  playbooks:
+    converge: ../resources/playbook.yml
+  lint:
+    name: ansible-lint
+  inventory:
+    host_vars:
+      java-jdk:
+        java_jdk_install: true
+
+scenario:
+  name: ubuntu
+verifier:
+  name: testinfra
+  directory: ../resources/tests/
+  lint:
+    name: flake8
