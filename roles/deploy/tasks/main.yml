@@ -1,5 +1,8 @@
 ---
+
 - name: Pulling projects
+  # become: "{{ item.user | default('root') }}"
+  become_user: "{{ item.user | default('root') }}"
   git:
     repo: "{{ item.repo }}"
     dest: "{{ item.dir }}"

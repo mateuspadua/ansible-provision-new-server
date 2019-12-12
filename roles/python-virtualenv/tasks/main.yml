@@ -20,6 +20,7 @@
   with_items: "{{ virtualenv_envs }}"
 
 - name: Create the virtualenv and install requirements
+  become_user: "{{ item.user | default('root') }}"
   pip:
     virtualenv: "{{ item.dir }}"
     virtualenv_python: "{{ item.base_python_package | default(base_python_package) }}"

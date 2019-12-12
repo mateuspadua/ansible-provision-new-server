@@ -69,4 +69,4 @@
   ignore_errors: "{{ ansible_check_mode }}"
   notify:
     - reload nginx
-  when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
+  # when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'

@@ -1,0 +1,1 @@
+ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook playbook.yml -t nginx
