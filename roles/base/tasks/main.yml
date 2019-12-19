@@ -21,7 +21,8 @@
     - htop
     - ntp  # network time protocol
     - git
-    - python-dev  # install header files and a static library for Python
+    - python3.7
+    - python3.7-dev
     - python-pip
     - python3-pip
   tags:
